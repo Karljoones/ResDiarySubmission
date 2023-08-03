@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ResDiary</title>
+    <style>
+        form#input-form {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        #output {
+            width: 50%;
+            margin: 8px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="input-form" id="input-form">
+        <label for="array-input">Array</label>
+        <input type="text" id="array-input" name="array-input" placeholder="1, 2, 3, 4, 5" required><br>
+
+        <label for="group-input">Groups</label>
+        <input type="number" id="group-input" name="group-input" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <p id="output"></p>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
