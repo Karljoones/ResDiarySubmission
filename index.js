@@ -8,13 +8,10 @@ const groupArrayElements = (array, segments) => {
     if (segments <= 0) return "Groups should be a positive number";
 
     const groupedArray = [];
-    const arrayLength = array.length;
-    const segmentSize = Math.ceil(arrayLength / segments);
+    const segmentSize = Math.ceil(array.length / segments);
 
-    let index = 0;
-    while (index < arrayLength) {
-        groupedArray.push(array.slice(index, index + segmentSize));
-        index += segmentSize;
+    for (var i = 0; i < array.length; i += segmentSize) {
+        groupedArray.push(array.slice(i, i + segmentSize));
     }
 
     return groupedArray;
