@@ -1,7 +1,7 @@
 /**
  * Group an array of numbers into N arrays
- * @param {Number[]} array - input array
- * @param {Number} segments - number of groups to split array into
+ * @param {int[]} array - input array
+ * @param {int} segments - number of groups to split array into
  * @returns groupedArray - array split into N arrays
  */
 const groupArrayElements = (array, segments) => {
@@ -24,18 +24,30 @@ const groupArrayElements = (array, segments) => {
 const handleSubmit = (e) => {
     e.preventDefault();
 
-    const inputArray = parseArrayInput(document.getElementById("array-input").value);
+    const result = handleArraySegmentation(document.getElementById("array-input").value, document.getElementById("group-input").value);
 
-    const result = groupArrayElements(inputArray, document.getElementById("group-input").value)
+    document.getElementById("output").innerText = JSON.stringify(result);
+}
+
+/**
+ * Handle the segmentation of the array, including the parsing of the input array and the grouping of elements.
+ * This returns the grouped array based off the variables passed into it.
+ * @param {string} stringInput - user input, used to parse into an array of numbers
+ * @param {int} segments - to segment the array
+ * @returns the grouped array
+ */
+const handleArraySegmentation = (stringInput, segments) => {
+    const inputArray = parseArrayInput(stringInput);
+    const result = groupArrayElements(inputArray, segments)
 
     console.log(result);
-    document.getElementById("output").innerText = JSON.stringify(result);
+    return result;
 }
 
 /**
  * Parse the input into an array of numbers, removing NaN values
  * @param {string} input from the form submission
- * @returns Number[] - input split and converted into an array of numbers
+ * @returns int[] - input split and converted into an array of numbers
  */
 const parseArrayInput = (input) => {
     const array = input.split(",");
@@ -48,5 +60,19 @@ const parseArrayInput = (input) => {
     return array.filter(function (value) { return !Number.isNaN(value); });
 }
 
-const inputForm = document.getElementById("input-form");
-inputForm && inputForm.addEventListener("submit", handleSubmit);
+// Display the output if used in a browser
+try {
+    const inputForm = document.getElementById("input-form");
+    inputForm && inputForm.addEventListener("submit", handleSubmit);
+} catch (e) {
+    console.log("Continue via command line");
+}
+
+// Handle command line input
+if (process.argv) {
+    if (process.argv.length < 4) {
+        console.log("2 arguments required: array and segments");
+    } else {
+        handleArraySegmentation(process.argv[2], process.argv[3]);
+    }
+}
